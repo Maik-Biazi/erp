@@ -15,6 +15,13 @@ interface IListItemLinkProps {
   icon: string;
   to: string;
   labelChildrenOne?:string
+  labelChildrenTwo?:string
+  labelChildrenThree?:string
+
+  haveLabelOneChildren?:boolean;
+  haveLabelTwoChildren?:boolean;
+  haveLabelThreeChildren?:boolean;
+
   onClick: (() => void) | undefined;
 }
 
@@ -23,7 +30,13 @@ export const SubMenuWithChildren: React.FC<IListItemLinkProps> = ({
   icon,
   onClick,
   to,
-  labelChildrenOne
+  labelChildrenOne,
+  labelChildrenTwo,
+  labelChildrenThree,
+  haveLabelOneChildren =false,
+  haveLabelTwoChildren=false,
+  haveLabelThreeChildren=false,
+  
 }) => {
   const [open, setOpen] = useState(true);
 
@@ -49,14 +62,52 @@ export const SubMenuWithChildren: React.FC<IListItemLinkProps> = ({
         <ListItemText primary={label}/>
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
-      <Collapse in={open} timeout="auto" unmountOnExit>
+
+      {haveLabelOneChildren && <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItemButton sx={{ pl: 4 }} onClick={handleClick}>
            
             <ListItemText primary={labelChildrenOne} />
           </ListItemButton>
         </List>
-      </Collapse>
+      </Collapse>}
+
+
+      {haveLabelTwoChildren && <Collapse in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItemButton sx={{ pl: 4 }} onClick={handleClick}>
+           
+            <ListItemText primary={labelChildrenOne} />
+          </ListItemButton>
+
+          <ListItemButton sx={{ pl: 4 }} onClick={handleClick}>
+           
+            <ListItemText primary={labelChildrenTwo} />
+          </ListItemButton>
+        </List>
+      </Collapse>}
+
+
+      {haveLabelThreeChildren && <Collapse in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItemButton sx={{ pl: 4 }} onClick={handleClick}>
+           
+            <ListItemText primary={labelChildrenOne} />
+          </ListItemButton>
+
+          <ListItemButton sx={{ pl: 4 }} onClick={handleClick}>
+           
+            <ListItemText primary={labelChildrenTwo} />
+          </ListItemButton>
+
+          <ListItemButton sx={{ pl: 4 }} onClick={handleClick}>
+           
+            <ListItemText primary={labelChildrenThree} />
+          </ListItemButton>
+        </List>
+      </Collapse>}
+
+      
     </>
   );
 };

@@ -1,10 +1,8 @@
-
 import {
   Avatar,
   Divider,
   Drawer,
   List,
-  
   useTheme,
   useMediaQuery,
 } from "@mui/material";
@@ -17,7 +15,6 @@ import { SubMenuWithChildren } from "./SubMenuWithChildren";
 interface IMenuLateralProps {
   children: React.ReactNode;
 }
-
 
 export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
   const theme = useTheme();
@@ -63,6 +60,7 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
                 label="Comercial"
                 icon="home"
                 to="/Comercial"
+                haveLabelOneChildren
                 onClick={smDown ? toggleDrawerOpen : undefined}
                 labelChildrenOne="Pessoas"
               />
@@ -70,8 +68,22 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
                 label="Produto"
                 icon="home"
                 to="/estoque"
+                haveLabelTwoChildren
                 onClick={smDown ? toggleDrawerOpen : undefined}
                 labelChildrenOne="Estoque"
+                labelChildrenTwo="Grupo"
+              />
+
+              <SubMenuWithChildren
+                label="Produto"
+                icon="home"
+                to="/estoque"
+                haveLabelThreeChildren
+                onClick={smDown ? toggleDrawerOpen : undefined}
+                labelChildrenOne="Estoque"
+                labelChildrenTwo="Grupo"
+                labelChildrenThree="Controle"
+
               />
             </List>
           </Box>
