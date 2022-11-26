@@ -1,9 +1,14 @@
-import { Icon, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import {
+  Icon,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
 import { useMatch, useNavigate, useResolvedPath } from "react-router-dom";
 
 interface IListItemLinkProps {
-  label: string;
-  icon: string;
+  label?: string;
+  icon?: string;
   to: string;
   onClick: (() => void) | undefined;
 }
@@ -14,27 +19,24 @@ export const SubMenu: React.FC<IListItemLinkProps> = ({
   onClick,
   to,
 }) => {
+  const navigate = useNavigate();
 
-    const navigate =useNavigate();
+  const resolvedPath = useResolvedPath(to);
 
-    const resolvedPath = useResolvedPath(to)
+  const match = useMatch({ path: resolvedPath.pathname, end: false });
 
-    const match =useMatch({ path: resolvedPath.pathname,end:false})
-
-    const handleClick = ()=>{
-        navigate(to)
-        onClick?.()
-    }
+  const handleClick = () => {
+    navigate(to);
+    onClick?.();
+  };
   return (
     <>
-    <ListItemButton selected= {!!match} onClick={handleClick}>
- <ListItemIcon>
-    <Icon>{icon}</Icon>
- </ListItemIcon>
- <ListItemText primary={label} />
-     
-</ListItemButton>
-</>
-    )
- 
+      <ListItemButton selected={!!match} onClick={handleClick}>
+        <ListItemIcon>
+          <Icon>{icon}</Icon>
+        </ListItemIcon>
+        <ListItemText primary={label} />
+      </ListItemButton>
+    </>
+  );
 };

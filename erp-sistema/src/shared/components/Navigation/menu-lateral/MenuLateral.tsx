@@ -5,10 +5,14 @@ import {
   List,
   useTheme,
   useMediaQuery,
+  ListItemText,
+  ListItemIcon,
+  Icon,
+  ListItemButton,
 } from "@mui/material";
 import { Box } from "@mui/system";
 
-import { useDrawerContext } from "../../../contexts";
+import { useAppThemeContext, useDrawerContext } from "../../../contexts";
 import { SubMenu } from "./SubMenu";
 import { SubMenuWithChildren } from "./SubMenuWithChildren";
 
@@ -20,7 +24,7 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
   const { isDrawerOpen, toggleDrawerOpen } = useDrawerContext();
-
+  const {toggleTheme} = useAppThemeContext()
   return (
     <>
       <Drawer
@@ -85,6 +89,17 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
                 labelChildrenThree="Controle"
 
               />
+            </List>
+            
+          </Box>
+          <Box>
+            <List>
+              <ListItemButton onClick={toggleTheme}>
+                <ListItemIcon>
+                  <Icon>dark_mode</Icon>
+                </ListItemIcon>
+                <ListItemText primary="Alternar tema"/>
+              </ListItemButton>
             </List>
           </Box>
         </Box>
