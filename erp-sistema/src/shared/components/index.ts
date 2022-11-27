@@ -1,2 +1,3 @@
 export * from "./Navigation/menu-lateral/MenuLateral";
-export * from "./barra-de-ferramenta/FerramentasDaListagem";
+export * from "./ferramentas-da-Listagem/FerramentasDaListagem";
+export * from './Ferramentas-de-Detalhe/FerramentasDeDetathe'
