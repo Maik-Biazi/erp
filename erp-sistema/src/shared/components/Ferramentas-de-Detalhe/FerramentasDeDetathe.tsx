@@ -1,4 +1,4 @@
-import { Button, Divider, Icon, Paper, useTheme } from "@mui/material";
+import { Button, Divider, Icon, Paper, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
 
 interface IFerramentasDeDetatheProps {
@@ -33,6 +33,9 @@ export const FerramentasDeDetathe: React.FC<IFerramentasDeDetatheProps> = ({
   aoClicarEmSalvarEFechar
 }) => {
   const theme = useTheme();
+  const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+  const mdDown = useMediaQuery(theme.breakpoints.down("md"));
+  
 
   return (
     <Box
@@ -52,7 +55,10 @@ export const FerramentasDeDetathe: React.FC<IFerramentasDeDetatheProps> = ({
         disableElevation
         endIcon={<Icon>save</Icon>}
       >
+        <Typography variant="button" whiteSpace="nowrap" textOverflow='ellipsis' overflow="hidden">
         Salvar
+        </Typography>
+        
       </Button>
       )}
       
@@ -64,7 +70,9 @@ export const FerramentasDeDetathe: React.FC<IFerramentasDeDetatheProps> = ({
         disableElevation
         endIcon={<Icon>save</Icon>}
       >
+         <Typography variant="button" whiteSpace="nowrap" textOverflow='ellipsis' overflow="hidden">
         Salvar e Voltar
+        </Typography>
       </Button>
       )}
 
@@ -76,7 +84,9 @@ export const FerramentasDeDetathe: React.FC<IFerramentasDeDetatheProps> = ({
         disableElevation
         endIcon={<Icon>delete</Icon>}
       >
+         <Typography variant="button" whiteSpace="nowrap" textOverflow='ellipsis' overflow="hidden">
         Apagar
+        </Typography>
       </Button>
       )}
 
@@ -87,7 +97,10 @@ export const FerramentasDeDetathe: React.FC<IFerramentasDeDetatheProps> = ({
         disableElevation
         endIcon={<Icon>add</Icon>}
       >
-        {textoBotaoNovo}
+          <Typography variant="button" whiteSpace="nowrap" textOverflow='ellipsis' overflow="hidden">
+          {textoBotaoNovo}
+        </Typography>
+        
       </Button>
       )}
       <Divider orientation="vertical" />
@@ -98,7 +111,9 @@ export const FerramentasDeDetathe: React.FC<IFerramentasDeDetatheProps> = ({
         disableElevation
         endIcon={<Icon>arrow_back</Icon>}
       >
-        Voltar
+        <Typography variant="button" whiteSpace="nowrap" textOverflow='ellipsis' overflow="hidden">
+          Voltar
+        </Typography>
       </Button>
       )}
     </Box>
