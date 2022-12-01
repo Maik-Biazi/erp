@@ -59,6 +59,12 @@ export const MenuLateral: React.FC<IMenuLateralProps> = ({ children }) => {
                 to="/pagina-inicial"
                 onClick={smDown ? toggleDrawerOpen : undefined}
               />
+               <SubMenu
+                icon="home"
+                label="Pessoas"
+                to="/pessoas"
+                onClick={smDown ? toggleDrawerOpen : undefined}
+              />
 
               <SubMenuWithChildren
                 label="Comercial"
