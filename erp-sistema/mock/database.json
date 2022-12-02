@@ -1,9 +1,10 @@
-{
-    "pessoas": [
+{ 
+     "pessoas": [
         {
             "id":1,
-            "nome":"juca",
-            "sobrenome":"Silva"
+            "nomeCompleto":"juca",
+            "email": "maikwilliam4553@gmail.com",
+            "idCidade": 1  
         }
     ]
 }
