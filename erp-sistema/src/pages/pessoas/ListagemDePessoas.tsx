@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import { FerramentasDaListagem } from "../../shared/components";
@@ -8,7 +9,10 @@ import {
 } from "../../shared/services/api/pessoas/PessoasService";
 import { useDebounce } from "../../shared/hooks";
 import {
+  Icon,
+  IconButton,
   LinearProgress,
+  Pagination,
   Paper,
   Table,
   TableBody,
@@ -33,11 +37,15 @@ export const ListagemDePessoas: React.FC = () => {
     return searchParams.get("busca") || "";
   }, [searchParams]);
 
+  const pagina = useMemo(() => {
+    return Number(searchParams.get("pagina") || "1");
+  }, [searchParams]);
+
   useEffect(() => {
     setIsLoading(true);
 
     debounce(() => {
-      PessoaService.getAll(1, busca).then((result) => {
+      PessoaService.getAll(pagina, busca).then((result) => {
         setIsLoading(false);
         if (result instanceof Error) {
           alert(result.message);
@@ -49,7 +57,22 @@ export const ListagemDePessoas: React.FC = () => {
         }
       });
     });
-  }, [busca, debounce]);
+  }, [busca, debounce, pagina]);
+
+  const handleDelete = (id: number) => {
+    if (confirm("Realmente deseja apagar?")) {
+      PessoaService.deleteById(id).then((result) => {
+        if (result instanceof Error) {
+          alert(result.message);
+        } else {
+          setRows((oldRows) => [
+            ...oldRows.filter((oldRow) => oldRow.id !== id),
+          ]);
+          alert("Registe apagado com sucesso");
+        }
+      });
+    }
+  };
 
   return (
     <LayoutBaseDePagina
@@ -60,7 +83,7 @@ export const ListagemDePessoas: React.FC = () => {
           mostrarInputBusca
           textoDaBusca={busca}
           aoMudarTextoDeBusca={(texto) =>
-            setSearchParams({ busca: texto }, { replace: true })
+            setSearchParams({ busca: texto, pagina: "1" }, { replace: true })
           }
         />
       }
@@ -85,11 +108,18 @@ export const ListagemDePessoas: React.FC = () => {
                 <TableCell>{row.id}</TableCell>
                 <TableCell>{row.nomeCompleto}</TableCell>
                 <TableCell>{row.email}</TableCell>
-                <TableCell>Ações</TableCell>
+                <TableCell>
+                  <IconButton size="small" onClick={() => handleDelete(row.id)}>
+                    <Icon>delete</Icon>
+                  </IconButton>
+                  <IconButton size="small">
+                    <Icon>edit</Icon>
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
-          {totalCount ===0 && !isLoading &&(
+          {totalCount === 0 && !isLoading && (
             <caption>{Enviroment.LISTAGEM_VAZIA}</caption>
           )}
           <TableFooter>
@@ -97,6 +127,23 @@ export const ListagemDePessoas: React.FC = () => {
               <TableRow>
                 <TableCell colSpan={4}>
                   <LinearProgress variant="indeterminate" />
+                </TableCell>
+              </TableRow>
+            )}
+
+            {totalCount > 0 && totalCount > Enviroment.LIMITE_DE_LINHAS && (
+              <TableRow>
+                <TableCell colSpan={4}>
+                  <Pagination
+                    page={pagina}
+                    count={Math.ceil(totalCount / Enviroment.LIMITE_DE_LINHAS)}
+                    onChange={(_, newPage) =>
+                      setSearchParams(
+                        { busca, pagina: newPage.toString() },
+                        { replace: true }
+                      )
+                    }
+                  />
                 </TableCell>
               </TableRow>
             )}
