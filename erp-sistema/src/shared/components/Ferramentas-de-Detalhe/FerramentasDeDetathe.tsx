@@ -53,6 +53,7 @@ export const FerramentasDeDetathe: React.FC<IFerramentasDeDetatheProps> = ({
         variant="contained"
         color="primary"
         disableElevation
+        onClick={aoClicarEmSalvar}
         endIcon={<Icon>save</Icon>}
       >
         <Typography variant="button" whiteSpace="nowrap" textOverflow='ellipsis' overflow="hidden">
@@ -68,6 +69,7 @@ export const FerramentasDeDetathe: React.FC<IFerramentasDeDetatheProps> = ({
         variant="contained"
         color="primary"
         disableElevation
+        onClick={aoClicarEmSalvarEFechar}
         endIcon={<Icon>save</Icon>}
       >
          <Typography variant="button" whiteSpace="nowrap" textOverflow='ellipsis' overflow="hidden">
@@ -82,7 +84,9 @@ export const FerramentasDeDetathe: React.FC<IFerramentasDeDetatheProps> = ({
         variant="contained"
         color="primary"
         disableElevation
+        onClick={aoClicarEmApagar}
         endIcon={<Icon>delete</Icon>}
+
       >
          <Typography variant="button" whiteSpace="nowrap" textOverflow='ellipsis' overflow="hidden">
         Apagar
@@ -95,6 +99,7 @@ export const FerramentasDeDetathe: React.FC<IFerramentasDeDetatheProps> = ({
         variant="contained"
         color="primary"
         disableElevation
+        onClick={aoCliarEmNovo}
         endIcon={<Icon>add</Icon>}
       >
           <Typography variant="button" whiteSpace="nowrap" textOverflow='ellipsis' overflow="hidden">
@@ -109,6 +114,7 @@ export const FerramentasDeDetathe: React.FC<IFerramentasDeDetatheProps> = ({
         variant="contained"
         color="primary"
         disableElevation
+        onClick={aoCLicarEmVoltar}
         endIcon={<Icon>arrow_back</Icon>}
       >
         <Typography variant="button" whiteSpace="nowrap" textOverflow='ellipsis' overflow="hidden">

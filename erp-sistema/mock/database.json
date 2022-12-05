@@ -1,24 +1,6 @@
 {
   "pessoas": [
     {
-      "id": 2,
-      "nomeCompleto": "juca",
-      "email": "juca4553@gmail.com",
-      "idCidade": 1
-    },
-    {
-      "id": 3,
-      "nomeCompleto": "Fernando",
-      "email": "fernando@gmail.com",
-      "idCidade": 1
-    },
-    {
-      "id": 4,
-      "nomeCompleto": "Ana",
-      "email": "ana@gmail.com",
-      "idCidade": 1
-    },
-    {
       "id": 5,
       "nomeCompleto": "Gabriel",
       "email": "gabriel@gmail.com",
