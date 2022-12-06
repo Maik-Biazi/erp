@@ -84,6 +84,7 @@ export const DetalheDePessoas: React.FC = () => {
                 <VTextfield name="nomeCompleto"/>
                 <VTextfield name="email"/>
                 <VTextfield name="cidadeId"/>
+                <VTextfield name="telefone"/>
               <button type="submit">Enviar</button>
         </Form>
     
