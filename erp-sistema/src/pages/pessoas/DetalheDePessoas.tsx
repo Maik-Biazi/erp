@@ -1,16 +1,29 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FerramentasDeDetathe } from "../../shared/components";
 import { LayoutBaseDePagina } from "../../shared/layout";
 import { PessoaService } from "../../shared/services/api/pessoas/PessoasService";
 import { LinearProgress, TextField } from "@mui/material";
 import { Form } from "@unform/web";
 import {VTextfield} from '../../shared/forms'
+import { FormHandles } from "@unform/core";
+
+
+interface IFormData{
+  email:string;
+  nomeCompleto: string;
+  cidadeId:string;
+}
+
+
+
 
 export const DetalheDePessoas: React.FC = () => {
   const { id = "nova" } = useParams<"id">();
+
+  const formRef = useRef<FormHandles>(null)
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -31,8 +44,8 @@ export const DetalheDePessoas: React.FC = () => {
     }
   }, [id]);
 
-  const handleSave = () => {
-    console.log("save");
+  const handleSave = (dados:IFormData) => {
+    console.log(dados);
   };
   const handleDelete = (id: number) => {
     console.log('chegou')
@@ -59,16 +72,19 @@ export const DetalheDePessoas: React.FC = () => {
           mostrarBotaoSalvarEFechar
           mostrarBotaoApagar={id !== "nova"}
           mostrarBotaoNovo={id !== "nova"}
-          aoClicarEmSalvar={handleSave}
-          aoClicarEmSalvarEFechar={handleSave}
+          aoClicarEmSalvar={()=> formRef.current?.submitForm()}
+          aoClicarEmSalvarEFechar={()=> formRef.current?.submitForm()}
           aoClicarEmApagar={()=> handleDelete(Number(id))}
           aoCliarEmNovo={() => navigate("/pessoas/detalhe/nova")}
           aoCLicarEmVoltar={() => navigate("/pessoas")}
         />
       }
     >
-        <Form onSubmit={console.log}>
+        <Form ref={formRef} onSubmit={handleSave}>
                 <VTextfield name="nomeCompleto"/>
+                <VTextfield name="email"/>
+                <VTextfield name="cidadeId"/>
+              <button type="submit">Enviar</button>
         </Form>
     
     </LayoutBaseDePagina>
