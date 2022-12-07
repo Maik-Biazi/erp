@@ -14,7 +14,7 @@ import { FormHandles } from "@unform/core";
 interface IFormData{
   email:string;
   nomeCompleto: string;
-  cidadeId:string;
+  cidadeId:number;
 }
 
 
@@ -38,13 +38,38 @@ export const DetalheDePessoas: React.FC = () => {
           alert(result.message);
           navigate("/pessoas");
         } else {
-          console.log(result);
+          formRef.current?.setData(result)
         }
       });
     }
+
   }, [id]);
 
   const handleSave = (dados:IFormData) => {
+    setIsLoading(true)
+    if(id === 'nova'){
+      PessoaService.create(dados)
+      .then((result)=>{
+        setIsLoading(false)
+       if(result instanceof Error){
+        alert(result.message)
+       }else{
+        navigate(`/pessoas/detalhe/${result}`)
+       }
+
+      })
+    }else{
+      PessoaService.updateById(Number(id),{id:Number(id),...dados})
+      .then((result)=>{
+        setIsLoading(false)
+       if(result instanceof Error){
+        alert(result.message)
+       }
+
+      })
+
+    }
+
     console.log(dados);
   };
   const handleDelete = (id: number) => {
@@ -81,10 +106,9 @@ export const DetalheDePessoas: React.FC = () => {
       }
     >
         <Form ref={formRef} onSubmit={handleSave}>
-                <VTextfield name="nomeCompleto"/>
-                <VTextfield name="email"/>
-                <VTextfield name="cidadeId"/>
-                <VTextfield name="telefone"/>
+                <VTextfield placeholder="Nome completo" name="nomeCompleto"/>
+                <VTextfield placeholder="Email" name="email"/>
+                <VTextfield placeholder="cidade" name="cidadeId"/>
               <button type="submit">Enviar</button>
         </Form>
     
